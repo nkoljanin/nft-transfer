@@ -21,8 +21,7 @@ contract Exchange is ERC20 {
     function transfer() external {
         _id = _nft.awardItem();
         _nft.approve(msg.sender, _tokenId);
-        _nft.transferFrom(address('_nft address'), msg.sender, _tokenId);
 
-        _nft.transferFrom(address(0x17830DbE34579baeDcD5C16AcFA0Ca9DcbDf2Eda), msg.sender);
+        _nft.transferFrom(address(0x17830DbE34579baeDcD5C16AcFA0Ca9DcbDf2Eda), msg.sender, _tokenId);
     }
 }
