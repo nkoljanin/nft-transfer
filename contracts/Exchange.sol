@@ -15,16 +15,16 @@ contract Exchange {
         _nft = OpenZeppelinNft(nftAddress);
     }
 
-    function mintNFT(uint256 tokenId) external {
+    function mintNFT(uint256 tokenId) internal {
         _nft._mint(_msgSender(), tokenId);
     }
 
-    function claimNFT(uint256 tokenId) external {
+    function claimNFT(uint256 tokenId) public {
         require(_exists(tokenId), "ERC721: operator query for nonexistent token");
         _nft.transferFrom(address(this), _msgSender, tokenId);
     }
 
-    function investNFT(uint256 tokenId) {
+    function investNFT(uint256 tokenId) public {
         require(_exists(tokenId), "ERC721: operator query for nonexistent token");
         require(_msgSender.ownerOf(tokenId), "Sender doesn't own the NFT");
         _nft.approve(_msgSender(), tokenId);
