@@ -5,7 +5,8 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import "./OpenZeppelinNft.sol";
 
-contract Exchange is ERC20 {
+contract Exchange {
+    address owner;
 
     OpenZeppelinNft internal _nft;
 
@@ -14,14 +15,23 @@ contract Exchange is ERC20 {
         _nft = OpenZeppelinNft(nftAddress);
     }
 
-    function mintNFT() external {
-        _nft._mint(msg.sender, tokenId);
+    function mintNFT(uint256 tokenId) external {
+        _nft._mint(_msgSender(), tokenId);
     }
 
-    function transfer() external {
-        _id = _nft.awardItem();
-        _nft.approve(msg.sender, _tokenId);
+    function claimNFT(uint256 tokenId) external {
+        require(_exists(tokenId), "ERC721: operator query for nonexistent token");
+        _nft.transferFrom(address(this), _msgSender, tokenId);
+    }
 
-        _nft.transferFrom(address(0x17830DbE34579baeDcD5C16AcFA0Ca9DcbDf2Eda), msg.sender, _tokenId);
+    function investNFT(uint256 tokenId) {
+        require(_exists(tokenId), "ERC721: operator query for nonexistent token");
+        require(_msgSender.ownerOf(tokenId), "Sender doesn't own the NFT");
+        _nft.approve(_msgSender(), tokenId);
+        _nft.transferFrom(_msgSender(), address(this), tokenId);
+    }
+
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
     }
 }
