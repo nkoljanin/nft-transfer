@@ -1,34 +1,27 @@
 // nft 0x3230654806417aB98c8d9CC91120F28650c12652
 // owner 0x7532073d11d8bb0654Eb6c7633525ED7b5218b3E
-
 pragma solidity >=0.4.22 <0.9.0;
 
-import "./OpenZeppelinNft.sol";
+import "./MyNFT.sol";
 
-contract Exchange {
-    address owner;
+contract Exchange is ERC721TokenReceiver{
 
-    OpenZeppelinNft internal _nft;
+    MyNFT internal _nft;
 
     constructor(address nftAddress) {
-        owner = msg.sender;
         _nft = OpenZeppelinNft(nftAddress);
     }
 
-    function mintNFT(uint256 tokenId) external {
-        _nft._mint(_msgSender(), tokenId);
-    }
-
-    function claimNFT(uint256 tokenId) public {
-        require(_nft._exists(tokenId), "ERC721: operator query for nonexistent token");
-        _nft.transferFrom(address(this), _msgSender, tokenId);
-    }
-
     function investNFT(uint256 tokenId) public {
+        ERC721 token = ERC721(contract);
         require(_nft._exists(tokenId), "ERC721: operator query for nonexistent token");
-        require(_msgSender.ownerOf(tokenId), "Sender doesn't own the NFT");
-        _nft.approve(_msgSender(), tokenId);
-        _nft.transferFrom(_msgSender(), address(this), tokenId);
+        require(getApproved);
+        require(token.balanceOf, "Sender must own the NFT");
+        _nft.transferTokenTo(_msgSender(), address, tokenId);
+    }
+
+    function withdraw(address _from, address _to, uint256 _tokenID) public {
+        _nft.transferTokenTo(nftaddress, _msgSender(), _tokenID);
     }
 
     function _msgSender() internal view virtual returns (address) {
