@@ -1,7 +1,7 @@
 const Migrations = artifacts.require("Migrations");
-const OpenZeppelinNft = artifacts.require("OpenZeppelinNft")
+const NFToken = artifacts.require("NFToken")
 
 module.exports = function (deployer) {
   deployer.deploy(Migrations);
-  deployer.deploy(OpenZeppelinNft);
+  deployer.deploy(NFToken);
 };
