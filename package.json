@@ -19,6 +19,7 @@
     "truffle": "^5.5.7"
   },
   "dependencies": {
+    "ganache-cli": "^6.12.2",
     "log-symbols": "^5.1.0"
   }
 }

@@ -2,11 +2,11 @@
 // owner 0x7532073d11d8bb0654Eb6c7633525ED7b5218b3E
 pragma solidity >=0.4.22 <0.9.0;
 
-import "./MyNFT.sol";
+import "./OriNFT.sol";
 
 contract Exchange{
 
-    MyNFT internal _nft;
+  //  MyNFT internal _nft;
 
     constructor(address nftAddress) {
         //_nft = OpenZeppelinNft(nftAddress);
