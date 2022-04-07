@@ -5,10 +5,9 @@ import "./nf-token.sol";
 import "./erc721-token-receiver.sol";
 
 
-contract OriNFT is NFToken, ERC721TokenReceiver {
+contract OriNFT is NFToken {
     NFToken internal nft;
-    ERC721TokenReceiver internal ERC721TokenReceiver;
-
+    ERC721TokenReceiver internal TokenReceiver;
     event NFTStaked(address staker, uint256 tokenId);
 
     function onERC721Received(address operator, // address which called SafeTransferFrom
@@ -16,18 +15,14 @@ contract OriNFT is NFToken, ERC721TokenReceiver {
         uint256 tokenId,
         bytes calldata data) external override returns (bytes4) {
             stakeNFT(from, tokenId);
-            return ERC721Receiver.onERC721Received.selector;
+            return ERC721TokenReceiver.onERC721Received.selector;
     }
-    //  https://bluegellabs.medium.com/ierc721-token-receiver-how-899f5411ebe5
 
     struct Stakes {
         address from;
         uint256 tokenId;
     }
     mapping (address => Stakes) stakedNFT;
-    address[] stakers;
-
-
 
     constructor() {
         //_mint(msg.sender, 1);
@@ -47,8 +42,8 @@ contract OriNFT is NFToken, ERC721TokenReceiver {
 
     function stakeNFT(address staker, uint256 tokenId) public {
         // add staker address to array of stakers and save the token id
-        //openOffers[staker].from = staker;
-        //openOffers[staker].tokenId = tokenId;
+        //stakedNFT[staker].from = staker;
+        //StakedNFT[staker].tokenId = tokenId;
         //Stakes(staker, tokenId);
     }
 
