@@ -7,9 +7,10 @@ import "./erc721-token-receiver.sol";
 
 contract OriNFT is NFToken {
     NFToken internal nft;
-    ERC721TokenReceiver internal TokenReceiver;
-    event NFTStaked(address staker, uint256 tokenId);
+    //ERC721TokenReceiver internal TokenReceiver;
+    //event NFTStaked(address staker, uint256 tokenId);
 
+/*
     function onERC721Received(address operator, // address which called SafeTransferFrom
         address from, // NFT owner
         uint256 tokenId,
@@ -17,6 +18,7 @@ contract OriNFT is NFToken {
             stakeNFT(from, tokenId);
             return ERC721TokenReceiver.onERC721Received.selector;
     }
+    */
 
     struct Stakes {
         address from;
@@ -38,6 +40,8 @@ contract OriNFT is NFToken {
         */
         nft.approve(staker, tokenId);
         nft.safeTransferFrom(staker, address(this), tokenId);
+        stakedNFT[staker].from = staker;
+        stakedNFT[staker].tokenId = tokenId;
     }
 
     function stakeNFT(address staker, uint256 tokenId) public {

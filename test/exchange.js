@@ -15,14 +15,13 @@ contract('MyNFT', (accounts) => {
 
         const balance1 = await myNFT.balanceOf.call(accounts[1]);
         console.log(balance1);
-        //assert.isTrue(balance.valueOf() > 0, "To less in origin token");
+        assert.isTrue(balance1.valueOf() == 1, "To less in origin token");
     });
 
     it('Send nft via other contract', async () => {
         const oriNFT = await OriNFT.deployed();
 
         await oriNFT.investNFT(accounts[1], 1);
-
     });
 
 });
